@@ -51,7 +51,7 @@ from tkinter import filedialog
 
 #======================================================================#
 #     [YT|R3ap3R] | Jarrod Burns | ta747839@gmail.com | 11/03/2021     #
-# -------------------------- Version  1.0.1 -------------------------- #
+# -------------------------- Version  1.0.2 -------------------------- #
 #======================================================================#
 
 
@@ -109,6 +109,7 @@ class YouTubeReaper:
             highlightthickness=2,
             relief="groove",
             bg=self.pallet["charcoal"],
+            highlightcolor=self.pallet["yt_white"],
             highlightbackground=self.pallet["yt_white"]
         )
         self.app_container.pack(expand=False, padx=10, pady=10)
