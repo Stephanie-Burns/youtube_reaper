@@ -1,7 +1,7 @@
 # \[YT|R3ap3R\]
 YouTube Reaper is intended to be a no nonsense file downloader for YouTube videos.
 
-![demo](https://user-images.githubusercontent.com/87616660/139683049-bbab87f8-05ec-44fa-a643-3bfbd3247f70.gif)
+![demo2](https://user-images.githubusercontent.com/87616660/140235549-c080a19d-73ef-4032-a0af-425fa0b78ecb.gif)
 
 ## Usage
 Provide YouTube Reaper with a YouTube video URL. If the link provided is valid, the file will be downloaded and saved to your computer.
