@@ -50,8 +50,8 @@ from tkinter import filedialog
 
 
 #======================================================================#
-#     [YT|R3ap3R] | Jarrod Burns | ta747839@gmail.com | 11/01/2021     #
-# -------------------------- Version  1.0.0 -------------------------- #
+#     [YT|R3ap3R] | Jarrod Burns | ta747839@gmail.com | 11/03/2021     #
+# -------------------------- Version  1.0.1 -------------------------- #
 #======================================================================#
 
 
@@ -83,7 +83,7 @@ class YouTubeReaper:
         }
 
         self.itags = [
-            ("48kbps", 139),
+            ("48kbps ", 139),
             ("128kbps", 140),
             ("360p", 18),
             ("720p", 22)
@@ -296,9 +296,9 @@ class YouTubeReaper:
         flag is set to True, and a new thread is opened in order to
         display the in progress animation. The "YouTube" constructor
         downloads the file, of user specified quality, to the defined
-        directory. Once the download is complete "download_in_progress"
-        is set to False and a success message in inserted into the URL
-        textbox.
+        directory. Once the download is complete, "download_in_progress"
+        is set to False, and after the thread terminates, a success
+        message in inserted into the URL textbox.
 
         If the user provided an invalid URL, the download button's
         appearance is updated to reflect its idle state and a message
@@ -328,6 +328,7 @@ class YouTubeReaper:
             )
 
             self.download_in_progress = False
+            self.new_thread.join()
             self.insert_message_to_textbox("Download completed successfully!")
 
         except exceptions.RegexMatchError:
@@ -361,11 +362,11 @@ class YouTubeReaper:
         user input is enabled.
         """
         frames = [
-            "Downloading |...",
-            "Downloading .|..",
-            "Downloading ..|.",
-            "Downloading ...|",
-            "Downloading ...."
+            "|...",
+            ".|..",
+            "..|.",
+            "...|",
+            "...."
         ]
 
         self.active_state_download_button()
@@ -373,7 +374,7 @@ class YouTubeReaper:
 
         while self.download_in_progress:
             for frame in frames:
-                self.download_button_text.set(frame)
+                self.download_button_text.set(f"Downloading {frame}")
                 time.sleep(0.3)
 
         self.idle_state_download_button()
@@ -427,6 +428,7 @@ class YouTubeReaper:
         self.url_textbox.unbind("<Button-1>", self.m1_clears_textbox)
         self.url_textbox.unbind("<Button-3>", self.m3_clears_textbox)
         self.url_textbox.bind("<Button-3>", self.show_context_menu)
+        self.url_textbox.focus_set()
 
         if event.num == 3:
             self.show_context_menu(event)
@@ -438,12 +440,12 @@ class YouTubeReaper:
         """
         self.url_textbox.bind(key_event, self.clear_message_text)
 
-    @staticmethod
-    def in_new_thread(function) -> None:
+    def in_new_thread(self, function) -> None:
         """
         Executes the supplied function in a new thread.
         """
-        threading.Thread(target=function).start()
+        self.new_thread = threading.Thread(target=function)
+        self.new_thread.start()
 
     @staticmethod
     def choose_save_file_directory() -> None:
